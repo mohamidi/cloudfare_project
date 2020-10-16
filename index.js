@@ -39,6 +39,8 @@ async function handleRequest(request) {
     .on('div#profile', new AttributeRewriter("style"))
     .on('img#avatar', new AttributeRewriter("src"))
     .on('h1#name', new AttributeRewriter("text"))
+    .on('body', new AttributeRewriter("class"))
+    .on('title', new AttributeRewriter("title"))
     return final.transform(new Response(results,init))
   }   
 }
@@ -89,11 +91,24 @@ class AttributeRewriter {
     else if(this.attributeName == "src") {  
       element.setAttribute(
         this.attributeName,
-        "https://avatars2.githubusercontent.com/u/58640912?s=400&u=455a6247186fd9aa15f33477ad15821509ae74b5&v=4")
+        "https://avatars2.githubusercontent.com/u/58640912?s=400&"
+        +"u=455a6247186fd9aa15f33477ad15821509ae74b5&v=4")
     }
     // Add username
     else if(this.attributeName == "text") {
       element.append("mohamidi")
     }
+    // Extra Credit: Change Background Color
+    else if(this.attributeName == "class") {
+      element.setAttribute(
+        this.attributeName,
+        attribute.replace("900", "400"),
+      )
+    }
+    // Extra Credit : Change Title
+    else if(this.attributeName == "title") {
+      element.setInnerContent("Mohamed Hamidi")
+    }
   } 
 }
+
